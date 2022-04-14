@@ -30,7 +30,7 @@ const init = async () => {
         console.log(`Ethers - account balance of ${ address } --> ${ethers.utils.formatEther(balance)} ETH\n` );
 
 
-        console.log("Ethers contract: ", contract );
+        //console.log("Ethers contract: ", contract );
 
     try {   
         const name = await contract.name();

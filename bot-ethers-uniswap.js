@@ -1,5 +1,7 @@
 const { ethers } = require('ethers');
 const web3 = require('web3'); //for utilities only
+//const rpcURL = 'https://mainnet.infura.io/v3/4cd98623d90d401ca984c02080c6bf72';
+//forked version
 const rpcURL = 'http://localhost:8545';
 const provider = new ethers.providers.JsonRpcProvider(rpcURL);
 
@@ -18,7 +20,7 @@ const tokenAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
 
 const init = async () => {
 
-const signer = new ethers.Wallet('83fc1fdc7044ae9f295eadb44b2847eaf6725493cf3a939f8297fc63b3c8a951');
+const signer = new ethers.Wallet('387a0732c908a5ea6aff719ce9c7d552452b52c12cc3b4922461b465784e87b7');
 const account = signer.connect(provider);
 
 const dai = await Fetcher.fetchTokenData(chainId, tokenAddress );
@@ -39,7 +41,6 @@ try {
     const amountOutMin =  await new web3.utils.BN(trade.minimumAmountOut(slippageTolerance).raw).toString();
 
    console.log("a landmark value: ", value );
-
    
 const uniswapABI = require('./abis/UniswapRouter.json'); 
     
@@ -77,10 +78,11 @@ if (receipt ) {
         + "Navigate to https://etherscan.io/txn/" 
         + (await sendTx).hash, "to see your transaction")
       }    //end iffy 
+
     } catch (e) {
         console.log("try failed: ", e.message)
     } 
-    
+
     process.exit();
 }
 
