@@ -86,10 +86,14 @@ if (receipt ) {
         const senderBalanceBefore = await provider.getBalance(acct1);
         const receiverBalanceBefore = await provider.getBalance(acct2);
 
+        const privateKey1 = '387a0732c908a5ea6aff719ce9c7d552452b52c12cc3b4922461b465784e87b7';
+        const wallet = new ethers.Wallet(privateKey1, provider);
+
         const tx = await wallet.sendTransaction({
             to: acct2,
-            //value: ethers.utils.parseEther("0.25")
-            value: ethers.utils.parseEther(value);
+            value: ethers.utils.parseEther("0.25"),
+            gasPrice: 20e9,
+            //value: ethers.utils.parseEther(value)
         })
     
         await tx.wait();
