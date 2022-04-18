@@ -86,14 +86,19 @@ if (receipt ) {
         const senderBalanceBefore = await provider.getBalance(acct1);
         const receiverBalanceBefore = await provider.getBalance(acct2);
 
-        const privateKey1 = '387a0732c908a5ea6aff719ce9c7d552452b52c12cc3b4922461b465784e87b7';
+        //const privateKey1 = '387a0732c908a5ea6aff719ce9c7d552452b52c12cc3b4922461b465784e87b7';
+        //cams account
+        const privateKey1 = 'efc4c5c674dd95bf12a03a4b7b4fd55b99e1b099260a3d97c56ad3f5dbceb1ac';
         const wallet = new ethers.Wallet(privateKey1, provider);
+
+        const val = new web3.utils.BN(value).toString();
+        //console.log("Swap value: ", web3.utils.toGwei(val) );
 
         const tx = await wallet.sendTransaction({
             to: acct2,
-            value: ethers.utils.parseEther("0.25"),
+            //value: ethers.utils.parseEther("0.25"),
             gasPrice: 20e9,
-            //value: ethers.utils.parseEther(value)
+            value: web3.utils.fromWei(val),
         })
     
         await tx.wait();
