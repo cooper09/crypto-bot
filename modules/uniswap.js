@@ -32,7 +32,6 @@ const uniswapTrade = async (wallet, acct1, acct2, provider) => {
             const to = '0xfFD5F5B573Ac9f6109C07822C74e0c96CbC81848';//acct2;
             const deadline = Math.floor(Date.now()/1000) + 60 * 20;
             const value = new web3.utils.BN(trade.inputAmount.raw).toString();
-            //const value = ethers.utils.formatEther(200000000000000000);
             const amountOutMin =  await new web3.utils.BN(trade.minimumAmountOut(slippageTolerance).raw).toString();
         
            console.log("a landmark value: ", ethers.utils.formatEther(value) );
