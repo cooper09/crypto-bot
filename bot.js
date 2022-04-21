@@ -29,12 +29,23 @@ const wallet = new ethers.Wallet(privateKey1, provider);
 
 const init = async () => {
     console.log ("Bot me, baby! ", process.env.NODE_URL);
+
+    //Gather all our goodies
     const network = await provider.getNetwork();
     console.log("network chain id:",network.chainId);
+
+    const accounts = await provider.listAccounts();
+    console.log("Current account: ", accounts[0]);
+
+   
+    //await contract.transfer(userAddress, dai);
+
 
     // Uniswap section goes here...
     result =  await uniswapTrade(wallet, acct1, acct2, provider);
     console.log("uniswapTrade result: ", result )
+    const amt = ethers.utils.formatEther(result);
+    console.log("amt to send: ", amt );
     //
     const senderBalanceBefore = await provider.getBalance(acct1);
     const receiverBalanceBefore = await provider.getBalance(acct2);
@@ -42,15 +53,16 @@ const init = async () => {
     console.log("Sender balance: ", ethers.utils.formatEther(senderBalanceBefore));
     console.log("Receiver balance: ", ethers.utils.formatEther(receiverBalanceBefore));
 
-    /*
+    
     const tx = await wallet.sendTransaction({
         to: acct2,
-        value: ethers.utils.parseEther("0.0031")
+        //value: ethers.utils.parseEther("0.00123")
+        value: ethers.utils.parseEther(amt)
     })
 
     await tx.wait();
     console.log("The deal is done: ", tx.hash );
-*/
+
 
     const senderBalanceAfter = await provider.getBalance(acct1);
     const receiverBalanceAfter = await provider.getBalance(acct2);

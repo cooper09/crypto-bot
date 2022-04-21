@@ -32,11 +32,20 @@ const uniswapTrade = async (wallet, acct1, acct2, provider) => {
             const to = '0xfFD5F5B573Ac9f6109C07822C74e0c96CbC81848';//acct2;
             const deadline = Math.floor(Date.now()/1000) + 60 * 20;
             const value = new web3.utils.BN(trade.inputAmount.raw).toString();
-            //const value = "0.0043"
+            //const value = ethers.utils.formatEther(200000000000000000);
             const amountOutMin =  await new web3.utils.BN(trade.minimumAmountOut(slippageTolerance).raw).toString();
         
            console.log("a landmark value: ", ethers.utils.formatEther(value) );
            const stinky = ethers.utils.formatEther(value);
+
+           const goober = ethers.utils.parseUnits(stinky, 18);
+
+           console.log("stinky goodie: ", stinky );
+           console.log("goober goodie: ", goober );
+
+           const weiBigNumber = ethers.utils.parseEther("0.000000000046")
+           const wei = weiBigNumber.toString();
+           console.log("wei: ", wei)
 
            const uniswap = new ethers.Contract( 
                 "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
@@ -60,13 +69,12 @@ const uniswapTrade = async (wallet, acct1, acct2, provider) => {
                     + "Navigate to https://etherscan.io/txn/" 
                     + (await sendTx).hash, "to see your transaction")
 
-                    return receipt;
+                    return value;
                   } 
+                  
         } catch (e) {
             console.log("Sorry charlie: ", e.message)
         }//end try
-
-
 
 }//end uniswap trade
 
